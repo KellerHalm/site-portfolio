@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дзаурова Танзила | Дизайнер интерьеров</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+        }
+
+        .hero-image {
+            flex: 1;
+            background-image: url('2.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .hero-text {
+            flex: 1;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #fff;
+            position: relative;
+        }
+
+        .vertical-text {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            color: #000;
+            opacity: 0.8;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: #666;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .info-block {
+            margin-bottom: 30px;
+        }
+
+        .info-block h3 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: #000;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            display: inline-block;
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+        }
+
+        .info-item strong {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .info-item span {
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .projects-section {
+            padding: 80px 60px;
+            background: #f9f9f9;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: #ddd;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-style: italic;
+            color: #333;
+        }
+
+        .project-detail {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff;
+            z-index: 1000;
+            overflow-y: auto;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .project-detail.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .detail-header {
+            padding: 40px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 10;
+        }
+
+        .detail-title {
+            font-size: 2rem;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            font-size: 1rem;
+            background: none;
+            border: 1px solid #333;
+            padding: 10px 25px;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        .detail-gallery {
+            padding: 40px 60px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .detail-gallery img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 1024px) {
+            .projects-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+            }
+
+            .hero-image {
+                height: 50vh;
+            }
+
+            .hero-text {
+                padding: 40px 30px;
+            }
+
+            .vertical-text {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .projects-section {
+                padding: 40px 20px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .detail-header {
+                padding: 20px;
+            }
+
+            .detail-gallery {
+                padding: 20px;
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .detail-gallery img {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="hero-image"></div>
+        <div class="hero-text fade-in">
+            <h1>ПОРТФОЛИО</h1>
+            <h1 class="hero-title">Дзаурова<br>Танзила</h1>
+            <p class="hero-subtitle">Дизайнер интерьеров</p>
+
+            <div class="info-block">
+                <h3>Образование</h3>
+                <div class="info-item">
+                    <strong>НОЧУ ВО МЭИ, 2017-2022</strong>
+                    <span>Дизайн архитектурной среды, бакалавриат</span>
+                </div>
+                <div class="info-item">
+                    <strong>Школа дизайна и компьютерной графики Spase School, 2017</strong>
+                    <span>Архитектурная визуализация по программе «3ds Max+ Corona Renderer+ Photoshop»</span>
+                </div>
+                <div class="info-item">
+                    <strong>Valleg Academy, 2019</strong>
+                    <span>Онлайн курс цифрового рисунка «Smart Procreate»</span>
+                </div>
+            </div>
+
+            <div class="info-block">
+                <h3>Опыт работы</h3>
+                <div class="info-item">
+                    <strong>«AABA ARCHITECTS» Архитектурное бюро Юрия Логинова, 2021</strong>
+                    <span>(стажировка)</span>
+                </div>
+                <div class="info-item">
+                    <strong>«JD» Студия дизайна интерьеров, 2022-2026</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects-section">
+        <h2 class="section-title fade-in">Проекты</h2>
+        <div class="projects-grid" id="projectsGrid"></div>
+    </section>
+
+    <div class="project-detail" id="projectDetail">
+        <div class="detail-header">
+            <h2 class="detail-title" id="detailTitle">Название проекта</h2>
+            <button class="close-btn" onclick="closeProject()">Закрыть</button>
+        </div>
+        <div class="detail-gallery" id="detailGallery"></div>
+    </div>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        const projectsData = [
+            { id: 1, name: "Винный погреб в частном доме Москва 2025" },
+            { id: 2, name: "Дизайн-проект 1 и 3 этажа 3-х этажного дома Санкт-Петербург 2025" },
+            { id: 3, name: "Дизайн-проект 2-х этажного дома 330.7кв.м Москва Лагри Парк 2025" },
+            { id: 4, name: "Дизайн-проект административных помещений турбазы Ессентуки 2025" },
+            { id: 5, name: "Дизайн-проект двухуровневой квартиры 111,4 кв.м Москва 2024" },
+            { id: 6, name: "Дизайн-проект квартиры 59.3 кв.м Москва 2025" },
+            { id: 7, name: "Дизайн-проект квартиры 61.3 кв.м  Москва 2024" },
+            { id: 8, name: "Дизайн-проект квартиры 73,6 кв.м. Москва 2026" },
+            { id: 9, name: "Дизайн-проект квартиры 90 кв.м. Владимир 2022" },
+            { id: 10, name: "Дизайн-проект квартиры 91,6 кв.м Москва 2025" },
+            { id: 11, name: "Дизайн-проект квартиры 112.1 кв.м Москва 2024" },
+            { id: 12, name: "Дизайн-проект квартиры-студии 44.6 кв.м Москва 2024" },
+            { id: 13, name: "Дизайн-проект частного дома Москва 2025" }
+        ];
+
+        const projectsGrid = document.getElementById('projectsGrid');
+
+        function loadImage(projectId, imageNum) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                const tryExtensions = ['jpg', 'png'];
+                let loaded = false;
+                
+                const tryNext = (index) => {
+                    if (index >= tryExtensions.length) {
+                        resolve(null);
+                        return;
+                    }
+                    
+                    const ext = tryExtensions[index];
+                    const src = `project/${projectId}/${imageNum}.${ext}`;
+                    
+                    img.onload = () => {
+                        if (!loaded) {
+                            loaded = true;
+                            resolve(src);
+                        }
+                    };
+                    
+                    img.onerror = () => {
+                        tryNext(index + 1);
+                    };
+                    
+                    img.src = src;
+                };
+                
+                tryNext(0);
+            });
+        }
+
+        projectsData.forEach((project) => {
+            const card = document.createElement('div');
+            card.className = 'project-card fade-in';
+            card.onclick = () => openProject(project);
+            
+            const img = document.createElement('img');
+            img.alt = project.name;
+            
+            loadImage(project.id, 1).then(src => {
+                if (src) {
+                    img.src = src;
+                } else {
+                    img.src = `https://via.placeholder.com/600x450/cccccc/ffffff?text=${encodeURIComponent(project.name)}`;
+                }
+            });
+            
+            const overlay = document.createElement('div');
+            overlay.className = 'project-overlay';
+            overlay.innerHTML = `<span>${project.name}</span>`;
+            
+            card.appendChild(img);
+            card.appendChild(overlay);
+            projectsGrid.appendChild(card);
+            observer.observe(card);
+        });
+
+        const projectDetail = document.getElementById('projectDetail');
+        const detailTitle = document.getElementById('detailTitle');
+        const detailGallery = document.getElementById('detailGallery');
+
+        async function openProject(project) {
+            detailTitle.innerText = project.name;
+            detailGallery.innerHTML = '<p style="text-align: center; color: #999; grid-column: 1/-1;">Загрузка изображений...</p>';
+            
+            projectDetail.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            const images = [];
+            for (let i = 1; i <= 58; i++) {
+                const src = await loadImage(project.id, i);
+                if (src) {
+                    images.push(src);
+                } else {
+                    break;
+                }
+            }
+            
+            if (images.length === 0) {
+                detailGallery.innerHTML = '<p style="text-align: center; color: #999; grid-column: 1/-1;">Изображения не найдены</p>';
+            } else {
+                detailGallery.innerHTML = '';
+                images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = project.name;
+                    detailGallery.appendChild(img);
+                });
+            }
+        }
+
+        function closeProject() {
+            projectDetail.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        projectDetail.addEventListener('click', (e) => {
+            if (e.target === projectDetail) {
+                closeProject();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && projectDetail.classList.contains('active')) {
+                closeProject();
+            }
+        });
+    </script>
+</body>
+</html>

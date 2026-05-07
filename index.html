@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Дзаурова Танзила | Дизайнер интерьеров</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -19,7 +22,10 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: 'Cormorant Garamond', serif;
         }
 
@@ -42,26 +48,31 @@
 
         .hero-image {
             flex: 1;
-            background-image: url('2.jpg');
+            background-image: url('./prj/canvas.png');
             background-size: cover;
             background-position: center;
             position: relative;
         }
-        
+
         .hero-image::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.1);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
         }
 
         .hero-text {
+            font-size: 23px;
             flex: 1;
-            padding: 60px 80px;
+            padding: 120px 80px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            background: #fff;
+            justify-content: flex-start;
+            background: #000;
+            color: #fff;
             position: relative;
         }
 
@@ -74,7 +85,7 @@
             font-weight: 600;
             font-size: 1.5rem;
             letter-spacing: 4px;
-            color: #000;
+            color: #fff;
             opacity: 0.8;
         }
 
@@ -88,7 +99,7 @@
             font-size: 1.2rem;
             font-weight: 300;
             margin-bottom: 40px;
-            color: #666;
+            color: #ccc;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -102,8 +113,8 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 15px;
-            color: #000;
-            border-bottom: 1px solid #eee;
+            color: #fff;
+            border-bottom: 1px solid #333;
             padding-bottom: 5px;
             display: inline-block;
         }
@@ -116,11 +127,12 @@
             display: block;
             font-weight: 500;
             margin-bottom: 2px;
+            color: #fff;
         }
 
         .info-item span {
             font-size: 0.9rem;
-            color: #555;
+            color: #ccc;
             line-height: 1.4;
         }
 
@@ -138,7 +150,7 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
@@ -163,8 +175,11 @@
 
         .project-overlay {
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255,255,255,0.95);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -179,15 +194,18 @@
         }
 
         .project-overlay span {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            font-style: italic;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
             color: #333;
         }
 
         .project-detail {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: #fff;
             z-index: 1000;
             overflow-y: auto;
@@ -214,6 +232,7 @@
         }
 
         .detail-title {
+            font-family: 'Montserrat', sans-serif;
             font-size: 2rem;
         }
 
@@ -237,72 +256,335 @@
         .detail-gallery {
             padding: 40px 60px;
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            max-width: 1400px;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 300px;
+            gap: 15px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
         .detail-gallery img {
             width: 100%;
-            height: 400px;
+            height: 100%;
             object-fit: cover;
             display: block;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        @media (max-width: 1024px) {
-            .projects-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        .detail-gallery img:hover {
+            transform: scale(1.02);
         }
 
-        
+        /* Masonry grid layouts for different projects */
+        .gallery-item-wide {
+            grid-column: span 2;
+        }
 
+        .gallery-item-tall {
+            grid-row: span 2;
+        }
+
+        .gallery-item-large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item-full {
+            grid-column: span 4;
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox-img {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 2001;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 3rem;
+            cursor: pointer;
+            z-index: 2001;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev {
+            left: 30px;
+        }
+
+        .lightbox-next {
+            right: 30px;
+        }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 25px;
+            border-radius: 20px;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 25px;
+            border-radius: 5px;
+            max-width: 80%;
+            text-align: center;
+        }
+
+        /* Mobile styles */
         @media (max-width: 768px) {
-            .first-scroll-section {
-                position: relative;
-                min-height: 100vh;
-            }
-
-            .image-container {
-                display: block !important;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 1;
-            }
-
-            .image-container img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            .text-container {
-                position: relative;
-                z-index: 2;
-                display: flex;
+            .hero {
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
+            }
+
+            .hero-image {
                 min-height: 100vh;
-                text-align: center;
-                padding: 20px;
-                background: rgba(255, 255, 255, 0.7); 
+                width: 100%;
+                flex: none;
+                background-size: cover;
+                background-position: right center;
+                background-color: #000;
+            }
+
+            .hero-text {
+                min-height: auto;
+                width: 100%;
+                flex: none;
+                padding: 40px 30px 60px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                margin-bottom: 5px;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+                margin-bottom: 30px;
+            }
+
+            .info-block {
+                margin-bottom: 25px;
+            }
+
+            .info-block h3 {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+                padding-bottom: 4px;
+            }
+
+            .info-item {
+                margin-bottom: 12px;
+            }
+
+            .info-item strong {
+                font-size: 0.95rem;
+                margin-bottom: 3px;
+            }
+
+            .info-item span {
+                font-size: 0.85rem;
+            }
+
+            .projects-section {
+                padding: 60px 20px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .detail-header {
+                padding: 30px 20px;
+            }
+
+            .detail-title {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 1.5rem;
+            }
+
+            .detail-gallery {
+                padding: 30px 20px;
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 250px;
+                gap: 10px;
+            }
+
+            .gallery-item-wide,
+            .gallery-item-large,
+            .gallery-item-full {
+                grid-column: span 2;
+            }
+
+            .gallery-item-tall {
+                grid-row: span 2;
+            }
+
+            .detail-gallery img {
+                height: 100%;
+            }
+
+            .lightbox-nav {
+                font-size: 2rem;
+                width: 45px;
+                height: 45px;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+
+            .lightbox-close {
+                top: 20px;
+                right: 20px;
+                font-size: 2.5rem;
+            }
+
+            .lightbox-counter {
+                bottom: 70px;
+                font-size: 0.9rem;
+                padding: 8px 20px;
+            }
+
+            .lightbox-caption {
+                bottom: 120px;
+                font-size: 0.85rem;
+                padding: 8px 20px;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-text {
+                padding: 30px 20px 40px;
+            }
+
+            .hero-subtitle {
+                margin-bottom: 25px;
+            }
+
+            .info-block {
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .detail-gallery {
+                grid-template-columns: 1fr;
+                grid-auto-rows: 300px;
+            }
+
+            .gallery-item-wide,
+            .gallery-item-large,
+            .gallery-item-full {
+                grid-column: span 1;
             }
         }
     </style>
 </head>
+
 <body>
 
     <section class="hero">
         <div class="hero-image"></div>
         <div class="hero-text fade-in">
-            <h1>ПОРТФОЛИО</h1>
-            <h1 class="hero-title">Дзаурова<br>Танзила</h1>
+            <h1 class="hero-title">Дзаурова Танзила</h1>
             <p class="hero-subtitle">Дизайнер интерьеров</p>
 
             <div class="info-block">
@@ -347,6 +629,18 @@
         <div class="detail-gallery" id="detailGallery"></div>
     </div>
 
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <span class="lightbox-nav lightbox-prev" onclick="changeImage(-1)">&#10094;</span>
+            <span class="lightbox-nav lightbox-next" onclick="changeImage(1)">&#10095;</span>
+            <img src="" alt="" class="lightbox-img" id="lightboxImg">
+            <div class="lightbox-caption" id="lightboxCaption"></div>
+            <div class="lightbox-counter" id="lightboxCounter"></div>
+        </div>
+    </div>
+
     <script>
         const observerOptions = {
             threshold: 0.1
@@ -363,51 +657,99 @@
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
         const projectsData = [
-            { id: 1, name: "Винный погреб в частном доме Москва 2025" },
-            { id: 2, name: "Дизайн-проект 1 и 3 этажа 3-х этажного дома Санкт-Петербург 2025" },
-            { id: 3, name: "Дизайн-проект 2-х этажного дома 330.7кв.м Москва Лагри Парк 2025" },
-            { id: 4, name: "Дизайн-проект частного дома Москва 2025" },
-            { id: 5, name: "Дизайн-проект двухуровневой квартиры 111,4 кв.м Москва 2024" },
-            { id: 6, name: "Дизайн-проект квартиры Москва 2025" },
-            { id: 7, name: "Дизайн-проект квартиры Москва 2024" },
-            { id: 8, name: "Дизайн-проект квартиры Москва 2026" },
-            { id: 9, name: "Дизайн-проект квартиры Владимир 2022" },
-            { id: 10, name: "Дизайн-проект квартиры-студии Москва 2024" },
-            { id: 11, name: "Дизайн-проект квартиры кв.м Москва 2024" },
-            { id: 12, name: "Дизайн-проект административных помещений турбазы Есентуки 2025" },
+            { id: 1, name: "Квартира 73,6 кв.м, Москва 2026" },
+            { id: 2, name: "Дом из клеёного бруса 330,7 кв.м, Москва 2025" },
+            { id: 3, name: "Винный погреб, Москва 2025" },
+            { id: 4, name: "Квартира 59.3 кв.м, Москва 2025" },
+            { id: 5, name: "Двухуровневая квартира 111,4 кв.м, Москва 2024" },
+            { id: 6, name: "Турбаза, Ессентуки 2025" },
+            { id: 7, name: "Квартира 61.3 кв.м, Москва 2024" },
+            { id: 8, name: "Квартира 91,6 кв.м, Москва 2025" },
+            { id: 9, name: "Таунхаус, Санкт-Петербург 2025" }
         ];
 
         const projectsGrid = document.getElementById('projectsGrid');
 
-        function loadImage(projectId, imageNum) {
+        // Current project images and index
+        let currentProjectImages = [];
+        let currentImageIndex = 0;
+        let currentProjectName = '';
+
+        // Masonry layouts for different projects
+        const masonryLayouts = {
+            1: ['wide', 'normal', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'large', 'normal', 'normal', 'wide', 'normal', 'normal', 'normal'],
+            2: ['normal', 'wide', 'normal', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'normal', 'large', 'normal', 'wide', 'normal'],
+            3: ['large', 'normal', 'normal', 'wide', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'normal', 'wide'],
+            4: ['wide', 'normal', 'normal', 'normal', 'tall', 'wide', 'normal', 'normal', 'normal', 'large', 'normal'],
+            5: ['normal', 'normal', 'wide', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'normal', 'wide', 'normal'],
+            6: ['full', 'normal', 'normal', 'wide', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal'],
+            7: ['normal', 'wide', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'large', 'normal'],
+            8: ['wide', 'normal', 'normal', 'normal', 'tall', 'wide', 'normal', 'normal', 'normal', 'wide'],
+            9: ['normal', 'normal', 'wide', 'normal', 'tall', 'normal', 'wide', 'normal', 'normal', 'large']
+        };
+
+        function loadImageFromRoot(imageNum) {
             return new Promise((resolve) => {
                 const img = new Image();
                 const tryExtensions = ['jpg', 'png'];
                 let loaded = false;
-                
+
                 const tryNext = (index) => {
                     if (index >= tryExtensions.length) {
                         resolve(null);
                         return;
                     }
-                    
+
                     const ext = tryExtensions[index];
-                    const src = `project/${projectId}/${imageNum}.${ext}`;
-                    
+                    const src = `${imageNum}.${ext}`;
+
                     img.onload = () => {
                         if (!loaded) {
                             loaded = true;
                             resolve(src);
                         }
                     };
-                    
+
                     img.onerror = () => {
                         tryNext(index + 1);
                     };
-                    
+
                     img.src = src;
                 };
-                
+
+                tryNext(0);
+            });
+        }
+
+        function loadImage(projectId, imageNum) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                const tryExtensions = ['jpg', 'png'];
+                let loaded = false;
+
+                const tryNext = (index) => {
+                    if (index >= tryExtensions.length) {
+                        resolve(null);
+                        return;
+                    }
+
+                    const ext = tryExtensions[index];
+                    const src = `prj/${projectId}/${imageNum}.${ext}`;
+
+                    img.onload = () => {
+                        if (!loaded) {
+                            loaded = true;
+                            resolve(src);
+                        }
+                    };
+
+                    img.onerror = () => {
+                        tryNext(index + 1);
+                    };
+
+                    img.src = src;
+                };
+
                 tryNext(0);
             });
         }
@@ -416,22 +758,23 @@
             const card = document.createElement('div');
             card.className = 'project-card fade-in';
             card.onclick = () => openProject(project);
-            
+
             const img = document.createElement('img');
             img.alt = project.name;
-            
-            loadImage(project.id, 1).then(src => {
+
+            // Load image from root directory (1.jpg, 2.jpg, etc.)
+            loadImageFromRoot(project.id).then(src => {
                 if (src) {
                     img.src = src;
                 } else {
                     img.src = `https://via.placeholder.com/600x450/cccccc/ffffff?text=${encodeURIComponent(project.name)}`;
                 }
             });
-            
+
             const overlay = document.createElement('div');
             overlay.className = 'project-overlay';
             overlay.innerHTML = `<span>${project.name}</span>`;
-            
+
             card.appendChild(img);
             card.appendChild(overlay);
             projectsGrid.appendChild(card);
@@ -441,14 +784,18 @@
         const projectDetail = document.getElementById('projectDetail');
         const detailTitle = document.getElementById('detailTitle');
         const detailGallery = document.getElementById('detailGallery');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+        const lightboxCaption = document.getElementById('lightboxCaption');
 
         async function openProject(project) {
             detailTitle.innerText = project.name;
             detailGallery.innerHTML = '<p style="text-align: center; color: #999; grid-column: 1/-1;">Загрузка изображений...</p>';
-            
+
             projectDetail.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
+
             const images = [];
             for (let i = 1; i <= 58; i++) {
                 const src = await loadImage(project.id, i);
@@ -458,15 +805,30 @@
                     break;
                 }
             }
-            
+
+            currentProjectImages = images;
+            currentProjectName = project.name;
+
             if (images.length === 0) {
                 detailGallery.innerHTML = '<p style="text-align: center; color: #999; grid-column: 1/-1;">Изображения не найдены</p>';
             } else {
                 detailGallery.innerHTML = '';
-                images.forEach(src => {
+
+                // Get masonry layout for this project
+                const layout = masonryLayouts[project.id] || [];
+
+                images.forEach((src, index) => {
                     const img = document.createElement('img');
                     img.src = src;
-                    img.alt = project.name;
+                    img.alt = `${project.name} - изображение ${index + 1}`;
+                    img.onclick = () => openLightbox(index);
+
+                    // Apply masonry class if defined
+                    if (layout[index]) {
+                        const sizeClass = `gallery-item-${layout[index]}`;
+                        img.classList.add(sizeClass);
+                    }
+
                     detailGallery.appendChild(img);
                 });
             }
@@ -477,17 +839,67 @@
             document.body.style.overflow = 'auto';
         }
 
+        // Lightbox functions
+        function openLightbox(index) {
+            currentImageIndex = index;
+            updateLightboxImage();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+
+            if (currentImageIndex < 0) {
+                currentImageIndex = currentProjectImages.length - 1;
+            } else if (currentImageIndex >= currentProjectImages.length) {
+                currentImageIndex = 0;
+            }
+
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            if (currentProjectImages.length > 0) {
+                lightboxImg.src = currentProjectImages[currentImageIndex];
+                lightboxCounter.innerText = `${currentImageIndex + 1} / ${currentProjectImages.length}`;
+                lightboxCaption.innerText = `${currentProjectName} - изображение ${currentImageIndex + 1}`;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    changeImage(-1);
+                } else if (e.key === 'ArrowRight') {
+                    changeImage(1);
+                }
+            } else if (e.key === 'Escape' && projectDetail.classList.contains('active')) {
+                closeProject();
+            }
+        });
+
+        // Close lightbox on background click
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+                closeLightbox();
+            }
+        });
+
         projectDetail.addEventListener('click', (e) => {
             if (e.target === projectDetail) {
                 closeProject();
             }
         });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && projectDetail.classList.contains('active')) {
-                closeProject();
-            }
-        });
     </script>
 </body>
+
 </html>

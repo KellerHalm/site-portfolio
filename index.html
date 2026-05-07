@@ -67,7 +67,7 @@
         .hero-text {
             font-size: 23px;
             flex: 1;
-            padding: 100px 80px;
+            padding: 10px 80px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -278,23 +278,6 @@
             transform: scale(1.02);
         }
 
-        /* Masonry grid layouts for different projects */
-        .gallery-item-wide {
-            grid-column: span 2;
-        }
-
-        .gallery-item-tall {
-            grid-row: span 2;
-        }
-
-        .gallery-item-large {
-            grid-column: span 2;
-            grid-row: span 2;
-        }
-
-        .gallery-item-full {
-            grid-column: span 3;
-        }
 
         /* Lightbox styles */
         .lightbox {
@@ -498,16 +481,6 @@
                 gap: 10px;
             }
 
-            .gallery-item-wide,
-            .gallery-item-large,
-            .gallery-item-full {
-                grid-column: span 2;
-            }
-
-            .gallery-item-tall {
-                grid-row: span 2;
-            }
-
             .detail-gallery img {
                 height: 100%;
             }
@@ -573,11 +546,6 @@
                 grid-auto-rows: 300px;
             }
 
-            .gallery-item-wide,
-            .gallery-item-large,
-            .gallery-item-full {
-                grid-column: span 1;
-            }
         }
     </style>
 </head>
@@ -678,18 +646,7 @@
         let currentImageIndex = 0;
         let currentProjectName = '';
 
-        // Masonry layouts for different projects
-        const masonryLayouts = {
-            1: ['wide', 'normal', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'large', 'normal', 'normal', 'wide', 'normal', 'normal', 'normal'],
-            2: ['normal', 'wide', 'normal', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'normal', 'large', 'normal', 'wide', 'normal'],
-            3: ['large', 'normal', 'normal', 'wide', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'normal', 'wide'],
-            4: ['wide', 'normal', 'normal', 'normal', 'tall', 'wide', 'normal', 'normal', 'normal', 'large', 'normal'],
-            5: ['normal', 'normal', 'wide', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'normal', 'wide', 'normal'],
-            6: ['full', 'normal', 'normal', 'wide', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal'],
-            7: ['normal', 'wide', 'tall', 'normal', 'normal', 'wide', 'normal', 'normal', 'large', 'normal'],
-            8: ['wide', 'normal', 'normal', 'normal', 'tall', 'wide', 'normal', 'normal', 'normal', 'wide'],
-            9: ['normal', 'normal', 'wide', 'normal', 'tall', 'normal', 'wide', 'normal', 'normal', 'large']
-        };
+
 
         function loadImageFromRoot(imageNum) {
             return new Promise((resolve) => {
@@ -817,21 +774,11 @@
             } else {
                 detailGallery.innerHTML = '';
 
-                // Get masonry layout for this project
-                const layout = masonryLayouts[project.id] || [];
-
                 images.forEach((src, index) => {
                     const img = document.createElement('img');
                     img.src = src;
                     img.alt = `${project.name} - изображение ${index + 1}`;
                     img.onclick = () => openLightbox(index);
-
-                    // Apply masonry class if defined
-                    if (layout[index]) {
-                        const sizeClass = `gallery-item-${layout[index]}`;
-                        img.classList.add(sizeClass);
-                    }
-
                     detailGallery.appendChild(img);
                 });
             }
